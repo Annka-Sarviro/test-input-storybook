@@ -1,0 +1,101 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* base color */
+  --black: #000000;
+  --white: #ffffff;
+
+  /* grey color */
+  --grey-900: #1a1a1e;
+  --grey-600: #a0a0ab;
+  --grey-400: #70707b;
+  --grey-300: #d1d1d6;
+
+  /* white-color */
+  --white-900: #fafafa;
+
+  /* blue color */
+  --blue-500: #84caff;
+  --blue-300: #2e90fa3d;
+
+  /* error color */
+  --error-600: #d92d20;
+  --error-500: #fda29b;
+  --error-300: #f044383d;
+
+  /* brand_color */
+  --brand-main: var(--blue-500);
+  --brand-light: var(--blue-300);
+
+  /* text-color */
+  --text-primary: var(--grey-900);
+  --text-primary-dark: var(--white-900);
+  --text-placeholder: var(--grey-400);
+  --text-disabled: var(--blue-300);
+  --text-quaternary: var(--grey-400);
+  --text-tertiary: var(--grey-600);
+  --text-error: var(--error-600);
+
+  /* background-color */
+  --bg-primary: var(--white);
+  --bg-dark: var(--grey-900);
+
+  /* border-style */
+  --border-primary: 1px solid var(--grey-300);
+  --border-error: 1px solid var(--error-500);
+  --border-brand: 1px solid var(--blue-500);
+
+  /* shadow */
+  --brand-ring: 0px 0px 0px 4px var(--blue-300);
+  --error-ring: 0px 0px 0px 4px var(--error-300);
+
+  /* text font-size styles */
+  --xxs: 12px;
+  --xs: 13px;
+  --sm: 14px;
+  --md: 16px;
+  --lg: 18px;
+  --xl: 20px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--text-primary-dark);
+    background-color: var(--bg-dark);
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+input {
+  outline: none;
+}
