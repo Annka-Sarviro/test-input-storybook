@@ -27,12 +27,14 @@ export interface InputProps {
   renderInputBeforeIcon?: React.ComponentType | null;
   renderInputAfterIcon?: React.ComponentType | null;
   renderInfoIcon?: React.ComponentType | null;
-  helperText: string;
-  labelPosition: "top" | "right" | "bottom" | "left";
-  sizes: "xs" | "md" | "lg" | "xl";
+  helperText?: string;
+  labelPosition?: "top" | "right" | "bottom" | "left";
+  sizes: "xs" | "sm" | "lg" | "xl";
   quiet?: boolean;
   required?: boolean;
   shortKey?: string;
+  alignment: "left" | "right";
+  errorText?: string;
 }
 export const Input = ({
   name,
@@ -41,6 +43,7 @@ export const Input = ({
   className,
   type = "text",
   error,
+  errorText,
   value,
   setValue,
   disabled = false,
@@ -50,6 +53,7 @@ export const Input = ({
   helperText,
   labelPosition = "top",
   sizes = "xs",
+  alignment = "left",
   quiet,
   shortKey,
   required,
@@ -67,16 +71,19 @@ export const Input = ({
 
   return (
     <div className={cn(styles.input_thumb, styles[labelPosition])}>
-      <div>
-        <p>
-          {label} {required && <span>required</span>}
-        </p>
-        {InputInfoIcon && (
-          <button>
-            <InputInfoIcon />
-          </button>
-        )}
-      </div>
+      {label && (
+        <div className={styles.label_wrapper}>
+          <p className={cn(styles.label, styles[sizes], { [styles.disabled]: disabled })}>
+            {label} {required && <span>required</span>}
+          </p>
+
+          {InputInfoIcon && (
+            <button>
+              <InputInfoIcon />
+            </button>
+          )}
+        </div>
+      )}
       <label htmlFor="input" className="visually-hidden">
         {label}
       </label>
@@ -86,6 +93,7 @@ export const Input = ({
           className={cn(
             styles.input_wrapper,
             styles[sizes],
+            { [styles.error]: error },
             { [styles.input_wrapper_quiet]: quiet },
             { [styles.input_wrapper_disabled]: disabled },
             className
@@ -99,7 +107,12 @@ export const Input = ({
 
           <input
             id="input"
-            className={cn(styles.input, { [styles.error]: error }, { [styles.input_disabled]: disabled })}
+            className={cn(
+              styles.input,
+              { [styles.error]: error },
+              alignment === "left" ? styles.alignment_left : styles.alignment_right,
+              { [styles.input_disabled]: disabled }
+            )}
             placeholder={placeholder}
             type={type}
             onChange={handleChange}
@@ -123,7 +136,7 @@ export const Input = ({
           )}
         </div>
 
-        <div>{error && <p className={styles.error_message}>error</p>}</div>
+        {error && errorText && <p className={styles.error_message}>{errorText}</p>}
         {helperText && !error && <div>helperText</div>}
       </div>
     </div>

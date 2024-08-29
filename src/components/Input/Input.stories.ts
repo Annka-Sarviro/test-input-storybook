@@ -24,17 +24,23 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   args: {
-    type: "email",
-    value: "Value",
+    type: "text",
+    value: "",
+    name: "default",
+    placeholder: "Input...",
+    error: false,
+    disabled: false,
+    alignment: "left",
+    sizes: "xs",
+    quiet: false,
   },
   argTypes: {
     renderInputBeforeIcon: {
-      options: Object.keys(icons), // An array of serializable values
-      mapping: icons, // Maps serializable option values to complex arg values
+      options: Object.keys(icons),
+      mapping: icons,
       control: {
-        type: "select", // Type 'select' is automatically inferred when 'options' is defined
+        type: "select",
         labels: {
-          // 'labels' maps option values to string labels
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
@@ -42,12 +48,11 @@ export const Default: Story = {
       },
     },
     renderInputAfterIcon: {
-      options: Object.keys(icons), // An array of serializable values
-      mapping: icons, // Maps serializable option values to complex arg values
+      options: Object.keys(icons),
+      mapping: icons,
       control: {
-        type: "select", // Type 'select' is automatically inferred when 'options' is defined
+        type: "select",
         labels: {
-          // 'labels' maps option values to string labels
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
@@ -55,27 +60,44 @@ export const Default: Story = {
       },
     },
     renderInfoIcon: {
-      options: Object.keys(icons), // An array of serializable values
-      mapping: icons, // Maps serializable option values to complex arg values
+      options: Object.keys(icons),
+      mapping: icons,
       control: {
-        type: "select", // Type 'select' is automatically inferred when 'options' is defined
+        type: "select",
         labels: {
-          // 'labels' maps option values to string labels
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
         },
       },
     },
+    setValue: { table: { disable: true } },
+    className: { table: { disable: true } },
+  },
+};
+
+export const MainInput: Story = {
+  args: {
+    ...Default.args,
+    name: "main",
+    type: "email",
+    value: "aaa@aaa.com",
+    placeholder: "your email",
+    label: "Email",
+  },
+  argTypes: {
+    ...Default.argTypes,
   },
 };
 
 export const IconInput: Story = {
   args: {
     ...Default.args,
-
-    type: "tel",
-    value: "Tel",
+    name: "main",
+    type: "email",
+    value: "aaa@aaa.com",
+    placeholder: "your email",
+    labelPosition: "top",
     renderInputBeforeIcon: CiSearch,
   },
   argTypes: {
