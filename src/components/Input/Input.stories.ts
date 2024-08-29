@@ -4,19 +4,12 @@ import { Input } from "./Input";
 import { CiSearch } from "react-icons/ci";
 import { PiQuestionBold } from "react-icons/pi";
 import { SlInfo } from "react-icons/sl";
-import { fn } from "@storybook/test";
 
 const icons = { CiSearch, PiQuestionBold, SlInfo };
 
 const meta: Meta<typeof Input> = {
   component: Input,
   tags: ["autodocs"],
-  //   args: { onFocus: fn() },
-  //   parameters: {
-  //     actions: {
-  //       handles: ["mouseover", "click .btn"],
-  //     },
-  //   },
 };
 
 export default meta;
@@ -25,7 +18,6 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   args: {
     type: "text",
-    value: "",
     name: "default",
     placeholder: "Input...",
     error: false,
@@ -36,11 +28,15 @@ export const Default: Story = {
   },
   argTypes: {
     renderInputBeforeIcon: {
-      options: Object.keys(icons),
-      mapping: icons,
+      options: [undefined, ...Object.keys(icons)],
+      mapping: {
+        undefined: null,
+        ...icons,
+      },
       control: {
         type: "select",
         labels: {
+          undefined: "None",
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
@@ -48,11 +44,15 @@ export const Default: Story = {
       },
     },
     renderInputAfterIcon: {
-      options: Object.keys(icons),
-      mapping: icons,
+      options: [undefined, ...Object.keys(icons)],
+      mapping: {
+        undefined: null,
+        ...icons,
+      },
       control: {
         type: "select",
         labels: {
+          undefined: "None",
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
@@ -60,18 +60,22 @@ export const Default: Story = {
       },
     },
     renderInfoIcon: {
-      options: Object.keys(icons),
-      mapping: icons,
+      options: [undefined, ...Object.keys(icons)],
+      mapping: {
+        undefined: null,
+        ...icons,
+      },
       control: {
         type: "select",
         labels: {
+          undefined: "None",
           CiSearch: "Search",
           PiQuestionBold: "Question",
           SlInfo: "Info",
         },
       },
     },
-    setValue: { table: { disable: true } },
+
     className: { table: { disable: true } },
   },
 };
@@ -81,7 +85,6 @@ export const MainInput: Story = {
     ...Default.args,
     name: "main",
     type: "email",
-    value: "aaa@aaa.com",
     placeholder: "your email",
     label: "Email",
   },
@@ -93,12 +96,30 @@ export const MainInput: Story = {
 export const IconInput: Story = {
   args: {
     ...Default.args,
-    name: "main",
-    type: "email",
-    value: "aaa@aaa.com",
+    name: "icon",
+    type: "text",
     placeholder: "your email",
     labelPosition: "top",
     renderInputBeforeIcon: CiSearch,
+    renderInputAfterIcon: PiQuestionBold,
+    renderInfoIcon: SlInfo,
+    shortKey: "K",
+    infoText: "Additional info",
+    label: "Email",
+    helperText: "this is a helper text",
+    sizes: "sm",
+  },
+  argTypes: {
+    ...Default.argTypes,
+    renderInputBeforeIcon: { table: { disable: true } },
+  },
+};
+
+export const ErrorInput: Story = {
+  args: {
+    ...IconInput.args,
+    error: true,
+    errorText: "Invalid text",
   },
   argTypes: {
     ...Default.argTypes,

@@ -7,23 +7,10 @@ export interface InputProps {
   className: string;
   label?: string;
   error: boolean;
-  type:
-    | "text"
-    | "password"
-    | "email"
-    | "number"
-    | "tel"
-    | "url"
-    | "date"
-    | "time"
-    | "datetime-local"
-    | "hidden"
-    | "submit"
-    | "reset"
-    | "button";
-  value?: string;
+  errorText?: string;
+  type: "text" | "password" | "email" | "number" | "tel" | "url" | "date" | "time" | "datetime-local";
+
   disabled: boolean;
-  setValue: (value: string) => void;
   renderInputBeforeIcon?: React.ComponentType | null;
   renderInputAfterIcon?: React.ComponentType | null;
   renderInfoIcon?: React.ComponentType | null;
@@ -34,7 +21,7 @@ export interface InputProps {
   required?: boolean;
   shortKey?: string;
   alignment: "left" | "right";
-  errorText?: string;
+  infoText?: string;
 }
 export const Input = ({
   name,
@@ -44,8 +31,7 @@ export const Input = ({
   type = "text",
   error,
   errorText,
-  value,
-  setValue,
+
   disabled = false,
   renderInputBeforeIcon,
   renderInputAfterIcon,
@@ -54,17 +40,12 @@ export const Input = ({
   labelPosition = "top",
   sizes = "xs",
   alignment = "left",
+  infoText,
   quiet,
   shortKey,
   required,
   ...props
 }: InputProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (setValue) {
-      setValue(event.target.value);
-    }
-  };
-
   const InputBeforeIcon = renderInputBeforeIcon;
   const InputAfterIcon = renderInputAfterIcon;
   const InputInfoIcon = renderInfoIcon;
@@ -74,13 +55,14 @@ export const Input = ({
       {label && (
         <div className={styles.label_wrapper}>
           <p className={cn(styles.label, styles[sizes], { [styles.disabled]: disabled })}>
-            {label} {required && <span>required</span>}
+            {label} {required && <span>(required)</span>}
           </p>
 
-          {InputInfoIcon && (
-            <button>
+          {InputInfoIcon && infoText && (
+            <div className={styles.info_icon} tabIndex={0}>
               <InputInfoIcon />
-            </button>
+              <p className={cn(styles.info_text, styles[sizes])}>{infoText}</p>
+            </div>
           )}
         </div>
       )}
@@ -100,7 +82,7 @@ export const Input = ({
           )}
         >
           {InputBeforeIcon && (
-            <div className={styles.before_icon} tabIndex={0}>
+            <div className={cn(styles.before_icon, styles[sizes], { [styles.error]: error })} tabIndex={0}>
               <InputBeforeIcon />
             </div>
           )}
@@ -110,34 +92,42 @@ export const Input = ({
             className={cn(
               styles.input,
               { [styles.error]: error },
+              { [styles.iconBefore]: renderInputBeforeIcon },
+              { [styles.iconAfter]: renderInputAfterIcon },
+              { [styles.shortKey]: shortKey },
               alignment === "left" ? styles.alignment_left : styles.alignment_right,
               { [styles.input_disabled]: disabled }
             )}
             placeholder={placeholder}
             type={type}
-            onChange={handleChange}
             disabled={disabled}
-            {...(value && { value })}
             size={1}
             {...props}
             required={required}
           />
 
           {InputAfterIcon && (
-            <div className={styles.before_icon} tabIndex={0}>
+            <div
+              className={cn(
+                styles.after_icon,
+                styles[sizes],
+                { [styles.error]: error },
+                { [styles.shortKey]: shortKey }
+              )}
+              tabIndex={0}
+            >
               <InputAfterIcon />
             </div>
           )}
 
-          {shortKey && (
-            <div className={styles.shortKey}>
-              <p>{`⌘ ${shortKey}`}</p>
-            </div>
-          )}
+          {shortKey && <p className={cn(styles.shortKey_text, styles[sizes])}>{`⌘ ${shortKey}`}</p>}
         </div>
 
-        {error && errorText && <p className={styles.error_message}>{errorText}</p>}
-        {helperText && !error && <div>helperText</div>}
+        {error && errorText ? (
+          <p className={styles.error_message}>{errorText}</p>
+        ) : (
+          helperText && !error && <p className={styles.helper_text}>{helperText}</p>
+        )}
       </div>
     </div>
   );

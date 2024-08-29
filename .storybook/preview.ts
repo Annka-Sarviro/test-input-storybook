@@ -4,7 +4,7 @@ import "../src/index.scss";
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      default: "dark",
+      default: "light",
 
       values: [
         { name: "light", value: "#fff" },
