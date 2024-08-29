@@ -1,41 +1,32 @@
 import cn from "classnames";
 import styles from "./Input.module.scss";
 
-type InputType =
-  | "text"
-  | "password"
-  | "email"
-  | "number"
-  | "tel"
-  | "url"
-  | "date"
-  | "time"
-  | "datetime-local"
-  | "month"
-  | "week"
-  | "range"
-  | "color"
-  | "checkbox"
-  | "radio"
-  | "file"
-  | "hidden"
-  | "submit"
-  | "reset"
-  | "button";
-
-interface InputProps {
+export interface InputProps {
   name: string;
   placeholder: string;
   className: string;
   label?: string;
   error: boolean;
-  type: InputType;
+  type:
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "tel"
+    | "url"
+    | "date"
+    | "time"
+    | "datetime-local"
+    | "hidden"
+    | "submit"
+    | "reset"
+    | "button";
   value?: string;
   disabled: boolean;
   setValue: (value: string) => void;
-  renderInputBeforeIcon?: React.ComponentType;
-  renderInputAfterIcon?: React.ComponentType;
-  renderInfoIcon?: React.ComponentType;
+  renderInputBeforeIcon?: React.ComponentType | null;
+  renderInputAfterIcon?: React.ComponentType | null;
+  renderInfoIcon?: React.ComponentType | null;
   helperText: string;
   labelPosition: "top" | "right" | "bottom" | "left";
   sizes: "xs" | "md" | "lg" | "xl";
@@ -43,7 +34,7 @@ interface InputProps {
   required?: boolean;
   shortKey?: string;
 }
-export const Input: React.FC<InputProps> = ({
+export const Input = ({
   name,
   label,
   placeholder,
@@ -63,7 +54,7 @@ export const Input: React.FC<InputProps> = ({
   shortKey,
   required,
   ...props
-}) => {
+}: InputProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (setValue) {
       setValue(event.target.value);
