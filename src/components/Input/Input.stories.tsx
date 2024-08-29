@@ -4,6 +4,7 @@ import { Input } from "./Input";
 import { CiSearch } from "react-icons/ci";
 import { PiQuestionBold } from "react-icons/pi";
 import { SlInfo } from "react-icons/sl";
+import { themes } from "@storybook/theming";
 
 const icons = { CiSearch, PiQuestionBold, SlInfo };
 
