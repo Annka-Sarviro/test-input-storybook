@@ -11,6 +11,7 @@ const preview: Preview = {
       values: [
         { name: "light", value: "#fff" },
         { name: "dark", value: "#1A1A1E" },
+        { name: "drop", value: "#2b2b93" },
       ],
     },
     controls: {
@@ -31,38 +32,44 @@ export const decorators = [
   (Story, context) => {
     const { backgrounds } = context.globals;
     const isDarkMode = backgrounds?.value === "#1A1A1E";
+    const isDropMode = backgrounds?.value === "#2b2b93";
 
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.style.setProperty("--bg-primary", "var(--bg-primary-dark)");
-      root.style.setProperty("--bg-secondary", "var(--bg-primary-light)");
-      root.style.setProperty("--text-primary", "var(--text-primary-dark)");
-      root.style.setProperty("--text-quaternary", "var--text-quaternary-dark)");
-      root.style.setProperty("--text-tertiary", "var(--text-tertiary-dark)");
-      root.style.setProperty("--text-error", "var(--text-error-dark)");
-      root.style.setProperty("--text-disabled", "var(--text-disabled-dark)");
-      root.style.setProperty("--fg-quinary", "var(--fg-quinary-dark)");
-      root.style.setProperty("--fg-disabled", "var(--fg-disabled-dark)");
-      root.style.setProperty("--fg-error-primary", "var(--fg-error-primary-dark)");
-      root.style.setProperty("--fg-primary", "var(--fg-primary-dark)");
-      root.style.setProperty("--border-primary", "var(--border-primary-dark)");
-      root.style.setProperty("--border-secondary", "var(--border-primary-dark)");
-    } else {
-      root.style.setProperty("--bg-primary", "var(--bg-primary-light)");
-      root.style.setProperty("--bg-secondary", "var(--bg-primary-dark)");
-      root.style.setProperty("--text-primary", "var(--text-primary-light)");
-      root.style.setProperty("--text-quaternary", "var--text-quaternary-light)");
-      root.style.setProperty("--text-tertiary", "var(--text-tertiary-light)");
-      root.style.setProperty("--text-error", "var(--text-error-light)");
-      root.style.setProperty("--text-disabled", "var(--text-disabled-light)");
-      root.style.setProperty("--fg-quinary", "var(--fg-quinary-light)");
-      root.style.setProperty("--fg-disabled", "var(--fg-disabled-light)");
-      root.style.setProperty("--fg-error-primary", "var(--fg-error-primary-light)");
-      root.style.setProperty("--fg-primary", "var(--fg-primary-light)");
-      root.style.setProperty("--border-primary", "var(--border-primary-light)");
-      root.style.setProperty("--border-secondary", "var(--border-primary-light)");
+    const Flex = ({ isDark, children }) => {
+      const themeClass = isDark ? "dark-theme" : "light-theme";
+
+      return (
+        <div
+          className={themeClass}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "3rem",
+            backgroundColor: isDark ? "var(--bg-primary-dark)" : "var(--bg-primary-light)",
+            color: isDark ? "var(--text-primary-dark)" : "var(--text-primary-light)",
+          }}
+        >
+          {children}
+        </div>
+      );
+    };
+
+    if (isDropMode) {
+      return (
+        <div>
+          <Flex isDark={true}>
+            <Story />
+          </Flex>
+          <Flex isDark={false}>
+            <Story />
+          </Flex>
+        </div>
+      );
     }
 
-    return <Story />;
+    return (
+      <Flex isDark={isDarkMode}>
+        <Story />
+      </Flex>
+    );
   },
 ];

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "normalize.css";
 import "./App.scss";
 import { Input } from "./components/Input/Input";
