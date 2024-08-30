@@ -1,50 +1,18 @@
-# React + TypeScript + Vite
+# Input Component + StoryBook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Local Image](./src/assets/input_preview.jpg)
 
-Currently, two official plugins are available:
+The Input component accepts the following props:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**type:** "text" | "password" | "email" | "number" | "tel" | "url" | "date" | "time" | "datetime-local"; **sizes:** "xs"
+| "sm" | "lg" | "xl"; **label:** string **placeholder:** string **required:** boolean **error:** boolean **errorText:**
+string and other
 
-## Expanding the ESLint configuration
+## For convenience, StoryBook has been added, which can be started by running the command
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+`npm run storybook`
 
-- Configure the top-level `parserOptions` property like this:
+Three color schemes have been implemented: dark, light, and drop. In drop mode, a drag-and-drop mechanism has been
+implemented for transferring the component from dark mode to light mode.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+![Local Image](./src/assets/input_preview_dark.jpg)
