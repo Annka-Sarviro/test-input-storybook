@@ -98,9 +98,16 @@
     // pointer-events: none;
     cursor: no-drop;
     color: var(--text-disabled);
+    outline: var(--border-primary);
 
     & input::placeholder {
       color: var(--text-disabled);
+    }
+
+    &:focus-within,
+    &:focus {
+      outline: var(--border-primary);
+      box-shadow: none;
     }
   }
   & .input.iconBefore {

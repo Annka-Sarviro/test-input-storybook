@@ -4,7 +4,6 @@ import { Input } from "./Input";
 import { CiSearch } from "react-icons/ci";
 import { PiQuestionBold } from "react-icons/pi";
 import { SlInfo } from "react-icons/sl";
-import { themes } from "@storybook/theming";
 
 const icons = { CiSearch, PiQuestionBold, SlInfo };
 
@@ -22,7 +21,9 @@ export const Default: Story = {
     name: "default",
     placeholder: "Input...",
     error: false,
+    errorText: "",
     disabled: false,
+    required: false,
     alignment: "left",
     sizes: "xs",
     quiet: false,
@@ -87,6 +88,7 @@ export const MainInput: Story = {
     name: "main",
     type: "email",
     placeholder: "your email",
+    labelPosition: "top",
     label: "Email",
   },
   argTypes: {

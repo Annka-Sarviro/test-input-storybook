@@ -9,7 +9,6 @@ export interface InputProps {
   error: boolean;
   errorText?: string;
   type: "text" | "password" | "email" | "number" | "tel" | "url" | "date" | "time" | "datetime-local";
-
   disabled: boolean;
   renderInputBeforeIcon?: React.ComponentType | null;
   renderInputAfterIcon?: React.ComponentType | null;
