@@ -13,7 +13,7 @@ function App() {
         placeholder="Input..."
         className="input"
         type="email"
-        error={true}
+        error={false}
         disabled={false}
         label="Email"
         renderInputBeforeIcon={CiSearch}
@@ -27,7 +27,7 @@ function App() {
         labelPosition="top"
         sizes="xl"
         required
-        quiet
+        // quiet
       />
     </div>
   );

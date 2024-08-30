@@ -1,5 +1,7 @@
 import cn from "classnames";
 import styles from "./Input.module.scss";
+import { InputLabel } from "./InputLabel";
+import { InputTextWrapper } from "./InputHelper";
 
 export interface InputProps {
   name: string;
@@ -47,27 +49,19 @@ export const Input = ({
 }: InputProps) => {
   const InputBeforeIcon = renderInputBeforeIcon;
   const InputAfterIcon = renderInputAfterIcon;
-  const InputInfoIcon = renderInfoIcon;
-
   return (
     <div className={cn(styles.input_thumb, styles[labelPosition])}>
       {label && (
-        <div className={styles.label_wrapper}>
-          <p className={cn(styles.label, styles[sizes], { [styles.disabled]: disabled })}>
-            {label} {required && <span>(required)</span>}
-          </p>
-
-          {InputInfoIcon && infoText && (
-            <div className={styles.info_icon} tabIndex={0}>
-              <InputInfoIcon />
-              <p className={cn(styles.info_text, styles[sizes])}>{infoText}</p>
-            </div>
-          )}
-        </div>
+        <InputLabel
+          required={required}
+          label={label}
+          renderInfoIcon={renderInfoIcon}
+          disabled={disabled}
+          sizes={sizes}
+          infoText={infoText}
+        />
       )}
-      <label htmlFor="input" className="visually-hidden">
-        {label}
-      </label>
+
       <div>
         <div
           tabIndex={0}
@@ -123,9 +117,9 @@ export const Input = ({
         </div>
 
         {error && errorText ? (
-          <p className={styles.error_message}>{errorText}</p>
+          <InputTextWrapper className={styles.error_message}>{errorText}</InputTextWrapper>
         ) : (
-          helperText && !error && <p className={styles.helper_text}>{helperText}</p>
+          helperText && !error && <InputTextWrapper className={styles.helper_text}>{helperText}</InputTextWrapper>
         )}
       </div>
     </div>
